@@ -1,6 +1,6 @@
 package com.ubeydekara.catalog.controller;
 
-import com.ubeydekara.catalog.model.Brand;
+import com.ubeydekara.catalog.model.Market;
 import com.ubeydekara.catalog.model.Catalog;
 import com.ubeydekara.catalog.service.CatalogService;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +27,15 @@ public class CatalogController {
         return ResponseHandler.generateResponse(HttpStatus.OK, catalogList);
     }
 
-    @PostMapping("/brand")
-    public ResponseEntity<Object> findAllByBrand(@RequestBody Brand brand) {
-        List<Catalog> catalogList = catalogService.findAllByBrand(brand);
+    @GetMapping("/recently-added")
+    public ResponseEntity<Object> findByRecentlyAdded() {
+        List<Catalog> catalogList = catalogService.findByRecentlyAdded();
+        return ResponseHandler.generateResponse(HttpStatus.OK, catalogList);
+    }
+
+    @PostMapping("/market")
+    public ResponseEntity<Object> findAllByMarket(@RequestBody Market market) {
+        List<Catalog> catalogList = catalogService.findAllByMarket(market);
         return ResponseHandler.generateResponse(HttpStatus.OK, catalogList);
     }
 

@@ -1,6 +1,6 @@
 package com.ubeydekara.catalog.service;
 
-import com.ubeydekara.catalog.model.Brand;
+import com.ubeydekara.catalog.model.Market;
 import com.ubeydekara.catalog.model.Catalog;
 import com.ubeydekara.catalog.model.Product;
 import com.ubeydekara.catalog.repository.CatalogRepository;
@@ -25,15 +25,24 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public List<Catalog> findAllByBrand(Brand brand) {
-        return catalogRepository.findAllByBrand(brand);
+    public List<Catalog> findByRecentlyAdded() {
+        return catalogRepository.findTop10ByOrderByCreateAtAsc();
+    }
+
+    @Override
+    public List<Catalog> findAllByMarket(Market market) {
+        return catalogRepository.findAllByMarket(market);
     }
 
     @Override
     public Catalog save(Catalog catalog) {
         catalog.setCatalogID(UUID.randomUUID());
         catalog.setCreateAt(LocalDate.now());
-        catalog.getProducts().forEach(x -> x.setCatalog(catalog));
+        catalog.getProducts().forEach(
+                x -> {
+                    x.setCatalog(catalog);
+                    x.setCreateAt(LocalDate.now());
+                });
         return catalogRepository.saveAndFlush(catalog);
     }
 

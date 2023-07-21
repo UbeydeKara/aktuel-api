@@ -25,8 +25,8 @@ public class Catalog {
     private LocalDate createAt;
 
     @ManyToOne
-    @JoinColumn(name = "brandID")
-    private Brand brand;
+    @JoinColumn(name = "marketID")
+    private Market market;
 
     @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL)
     private List<Product> products;

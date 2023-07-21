@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Entity(name = "brands")
+@Entity(name = "markets")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Brand {
+public class Market {
     @Id
     @GeneratedValue
-    private UUID brandID;
+    private UUID marketID;
     private String title;
     private String img_path;
     private String tint;

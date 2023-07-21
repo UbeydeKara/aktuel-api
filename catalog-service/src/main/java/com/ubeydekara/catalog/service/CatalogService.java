@@ -1,6 +1,6 @@
 package com.ubeydekara.catalog.service;
 
-import com.ubeydekara.catalog.model.Brand;
+import com.ubeydekara.catalog.model.Market;
 import com.ubeydekara.catalog.model.Catalog;
 
 import java.util.List;
@@ -10,7 +10,9 @@ public interface CatalogService {
 
     List<Catalog> getAll();
 
-    List<Catalog> findAllByBrand(Brand brand);
+    List<Catalog> findByRecentlyAdded();
+
+    List<Catalog> findAllByMarket(Market market);
     Catalog save(Catalog catalog);
     Catalog update(Catalog catalog);
     void deleteAllByIds(List<UUID> catalogId);
