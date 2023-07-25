@@ -1,19 +1,21 @@
 package com.ubeydekara.catalog.service;
 
-import com.ubeydekara.catalog.model.Market;
-import com.ubeydekara.catalog.model.Catalog;
+import com.ubeydekara.catalog.request.CatalogRequest;
+import com.ubeydekara.catalog.response.CatalogResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CatalogService {
 
-    List<Catalog> getAll();
+    List<CatalogResponse> findAll();
 
-    List<Catalog> findByRecentlyAdded();
+    List<CatalogResponse> findByRecentlyAdded();
+    List<CatalogResponse> findAllByMarket(UUID marketID);
 
-    List<Catalog> findAllByMarket(Market market);
-    Catalog save(Catalog catalog);
-    Catalog update(Catalog catalog);
+    CatalogResponse save(CatalogRequest catalogRequest);
+
+    CatalogResponse update(CatalogRequest catalogRequest);
+
     void deleteAllByIds(List<UUID> catalogId);
 }

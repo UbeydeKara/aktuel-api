@@ -1,14 +1,14 @@
 package com.ubeydekara.catalog.service;
 
-import com.ubeydekara.catalog.model.Market;
+import com.ubeydekara.catalog.mapper.CatalogMapper;
 import com.ubeydekara.catalog.model.Catalog;
-import com.ubeydekara.catalog.model.Product;
 import com.ubeydekara.catalog.repository.CatalogRepository;
+import com.ubeydekara.catalog.request.CatalogRequest;
+import com.ubeydekara.catalog.response.CatalogResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,39 +16,40 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class CatalogServiceImpl implements CatalogService {
-
     private final CatalogRepository catalogRepository;
+    private final MarketService marketService;
+    private final CatalogMapper catalogMapper;
 
     @Override
-    public List<Catalog> getAll() {
-        return catalogRepository.findAll();
+    public List<CatalogResponse> findAll() {
+        List<Catalog> catalogList = catalogRepository.findAll();
+        return catalogMapper.toResponse(catalogList);
     }
 
     @Override
-    public List<Catalog> findByRecentlyAdded() {
-        return catalogRepository.findTop10ByOrderByCreateAtAsc();
+    public List<CatalogResponse> findByRecentlyAdded() {
+        List<Catalog> catalogList = catalogRepository.findTop10ByOrderByCreateAtAsc();
+        return catalogMapper.toResponse(catalogList);
     }
 
     @Override
-    public List<Catalog> findAllByMarket(Market market) {
-        return catalogRepository.findAllByMarket(market);
+    public List<CatalogResponse> findAllByMarket(UUID marketID) {
+        List<Catalog> catalogList = catalogRepository.findAllByMarket(marketService.getById(marketID));
+        return catalogMapper.toResponse(catalogList);
     }
 
     @Override
-    public Catalog save(Catalog catalog) {
-        catalog.setCatalogID(UUID.randomUUID());
-        catalog.setCreateAt(LocalDate.now());
-        catalog.getProducts().forEach(
-                x -> {
-                    x.setCatalog(catalog);
-                    x.setCreateAt(LocalDate.now());
-                });
-        return catalogRepository.saveAndFlush(catalog);
+    public CatalogResponse save(CatalogRequest catalogRequest) {
+        Catalog catalogEntity = catalogMapper.toEntity(catalogRequest);
+        Catalog catalog = catalogRepository.save(catalogEntity);
+        return catalogMapper.toResponse(catalog);
     }
 
     @Override
-    public Catalog update(Catalog catalog) {
-        return catalogRepository.saveAndFlush(catalog);
+    public CatalogResponse update(CatalogRequest catalogRequest) {
+        Catalog catalogEntity = catalogMapper.toEntity(catalogRequest);
+        Catalog catalog = catalogRepository.save(catalogEntity);
+        return catalogMapper.toResponse(catalog);
     }
 
     @Override

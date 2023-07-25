@@ -1,5 +1,6 @@
 package com.ubeydekara.catalog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,6 @@ public class Catalog {
     @Id
     @GeneratedValue
     private UUID catalogID;
-    private String img_path;
     private LocalDate deadline;
     private LocalDate startAt;
     private LocalDate createAt;
@@ -27,6 +27,9 @@ public class Catalog {
     @ManyToOne
     @JoinColumn(name = "marketID")
     private Market market;
+
+    @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL)
+    private List<CatalogImage> images;
 
     @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL)
     private List<Product> products;

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -16,12 +17,17 @@ public class MarketServiceImpl implements MarketService {
     private final MarketRepository marketRepository;
 
     @Override
-    public List<Market> getAll() {
+    public List<Market> findAll() {
         return marketRepository.findAll();
     }
 
     @Override
-    public Market add(Market market) {
+    public Market save(Market market) {
         return marketRepository.save(market);
+    }
+
+    @Override
+    public Market getById(UUID marketID) {
+        return marketRepository.getMarketByMarketID(marketID);
     }
 }

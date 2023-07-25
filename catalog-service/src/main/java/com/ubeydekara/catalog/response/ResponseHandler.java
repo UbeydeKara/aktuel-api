@@ -1,4 +1,4 @@
-package com.ubeydekara.base.response;
+package com.ubeydekara.catalog.response;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

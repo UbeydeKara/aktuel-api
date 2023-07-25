@@ -1,7 +1,7 @@
 package com.ubeydekara.catalog.controller;
 
-import com.ubeydekara.base.response.ResponseHandler;
 import com.ubeydekara.catalog.model.Market;
+import com.ubeydekara.catalog.response.ResponseHandler;
 import com.ubeydekara.catalog.service.MarketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,19 +17,17 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class MarketController {
-
     private final MarketService marketService;
 
-    @GetMapping
-    public ResponseEntity<Object> getAll() {
-        List<Market> marketList = marketService.getAll();
+    @GetMapping("/findAll")
+    public ResponseEntity<Object> findAll() {
+        List<Market> marketList = marketService.findAll();
         return ResponseHandler.generateResponse(HttpStatus.OK, marketList);
     }
 
-    @PostMapping
-    public ResponseEntity<Object> add(@RequestBody @Valid Market market) {
-        Market newMarket = marketService.add(market);
+    @PostMapping("/save")
+    public ResponseEntity<Object> save(@RequestBody @Valid Market market) {
+        Market newMarket = marketService.save(market);
         return ResponseHandler.generateResponse(HttpStatus.OK, newMarket);
     }
-
 }

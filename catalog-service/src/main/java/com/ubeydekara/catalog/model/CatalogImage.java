@@ -6,15 +6,15 @@ import lombok.*;
 
 import java.util.UUID;
 
-@Entity(name = "products")
+@Entity(name = "catalog_images")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Product {
+public class CatalogImage {
     @Id
     @GeneratedValue
-    private UUID productID;
+    private UUID catalogImageID;
 
     @Column(length = 500)
     private String path;

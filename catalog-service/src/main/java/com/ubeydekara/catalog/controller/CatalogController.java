@@ -1,14 +1,14 @@
 package com.ubeydekara.catalog.controller;
 
-import com.ubeydekara.catalog.model.Market;
-import com.ubeydekara.catalog.model.Catalog;
+import com.ubeydekara.catalog.request.CatalogRequest;
+import com.ubeydekara.catalog.response.CatalogResponse;
+import com.ubeydekara.catalog.response.ResponseHandler;
 import com.ubeydekara.catalog.service.CatalogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.ubeydekara.base.response.ResponseHandler;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,33 +21,33 @@ public class CatalogController {
 
     private final CatalogService catalogService;
 
-    @GetMapping
-    public ResponseEntity<Object> getAll() {
-        List<Catalog> catalogList = catalogService.getAll();
+    @GetMapping("findAll")
+    public ResponseEntity<Object> findAll() {
+        List<CatalogResponse> catalogList = catalogService.findAll();
         return ResponseHandler.generateResponse(HttpStatus.OK, catalogList);
     }
 
     @GetMapping("/recently-added")
     public ResponseEntity<Object> findByRecentlyAdded() {
-        List<Catalog> catalogList = catalogService.findByRecentlyAdded();
+        List<CatalogResponse> catalogList = catalogService.findByRecentlyAdded();
         return ResponseHandler.generateResponse(HttpStatus.OK, catalogList);
     }
 
-    @PostMapping("/market")
-    public ResponseEntity<Object> findAllByMarket(@RequestBody Market market) {
-        List<Catalog> catalogList = catalogService.findAllByMarket(market);
+    @GetMapping("/market/{marketID}")
+    public ResponseEntity<Object> findAllByMarket(@PathVariable("marketID") UUID marketID) {
+        List<CatalogResponse> catalogList = catalogService.findAllByMarket(marketID);
         return ResponseHandler.generateResponse(HttpStatus.OK, catalogList);
     }
 
-    @PostMapping
-    public ResponseEntity<Object> save(@RequestBody Catalog catalog) {
-        Catalog catalogResponse = catalogService.save(catalog);
+    @PostMapping("/save")
+    public ResponseEntity<Object> save(@RequestBody CatalogRequest catalogRequest) {
+        CatalogResponse catalogResponse = catalogService.save(catalogRequest);
         return ResponseHandler.generateResponse(HttpStatus.OK, catalogResponse);
     }
 
-    @PutMapping
-    public ResponseEntity<Object> update(@RequestBody Catalog catalog) {
-        Catalog catalogResponse = catalogService.update(catalog);
+    @PutMapping("/update")
+    public ResponseEntity<Object> update(@RequestBody CatalogRequest catalogRequest) {
+        CatalogResponse catalogResponse = catalogService.update(catalogRequest);
         return ResponseHandler.generateResponse(HttpStatus.OK, catalogResponse);
     }
 
