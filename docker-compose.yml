@@ -57,7 +57,7 @@ services:
     restart: unless-stopped
 
   config-service:
-    image: ubeydekara/aktuel_api/config-service:latest
+    image: ubeydekara/aktuel-config-service:latest
     container_name: config-service
     ports:
       - "8888:8888"
@@ -70,7 +70,7 @@ services:
       - VAULT_TOKEN=${VAULT_TOKEN}
 
   discovery-service:
-    image: ubeydekara/aktuel_api/discovery-service:latest
+    image: ubeydekara/aktuel-discovery-service:latest
     container_name: discovery-service
     ports:
       - "8761:8761"
@@ -83,7 +83,7 @@ services:
       - zipkin
 
   gateway-service:
-    image: ubeydekara/aktuel_api/gateway-service:latest
+    image: ubeydekara/aktuel-gateway-service:latest
     container_name: gateway-service
     ports:
       - "8080:8080"
@@ -97,7 +97,7 @@ services:
       - discovery-service
 
   catalog-service:
-    image: ubeydekara/aktuel_api/catalog-service:latest
+    image: ubeydekara/aktuel-catalog-service:latest
     container_name: catalog-service
     ports:
       - "8081:8081"

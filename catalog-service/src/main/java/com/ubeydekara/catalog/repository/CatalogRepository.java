@@ -9,5 +9,8 @@ import java.util.UUID;
 
 public interface CatalogRepository extends JpaRepository<Catalog, UUID> {
     List<Catalog> findTop10ByOrderByCreateAtAsc();
+
     List<Catalog> findAllByMarket(Market marketID);
+
+    Catalog getCatalogByCatalogID(UUID catalogID);
 }

@@ -1,5 +1,7 @@
 package com.ubeydekara.catalog.service;
 
+import com.ubeydekara.catalog.model.Catalog;
+import com.ubeydekara.catalog.model.Market;
 import com.ubeydekara.catalog.request.CatalogRequest;
 import com.ubeydekara.catalog.response.CatalogResponse;
 
@@ -12,6 +14,7 @@ public interface CatalogService {
 
     List<CatalogResponse> findByRecentlyAdded();
     List<CatalogResponse> findAllByMarket(UUID marketID);
+    Catalog getById(UUID catalogID);
 
     CatalogResponse save(CatalogRequest catalogRequest);
 

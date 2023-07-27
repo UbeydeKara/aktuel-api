@@ -17,7 +17,6 @@ public class CatalogRequest {
     private UUID catalogID;
     private LocalDate deadline;
     private LocalDate startAt;
-    private LocalDate createAt;
     private UUID marketID;
     private List<String> images;
     private List<String> products;
