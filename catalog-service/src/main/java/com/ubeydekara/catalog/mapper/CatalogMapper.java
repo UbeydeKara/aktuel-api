@@ -37,15 +37,19 @@ public class CatalogMapper {
                 .market(marketService.getById(catalogRequest.getMarketID()))
                 .build();
 
-        catalogRequest.getImages().forEach(x -> {
-            CatalogImage catalogImage = CatalogImage.builder().catalogImageID(UUID.randomUUID()).path(x).catalog(catalog).build();
-            catalogImages.add(catalogImage);
-        });
+        if (catalogRequest.getImages() != null) {
+            catalogRequest.getImages().forEach(x -> {
+                CatalogImage catalogImage = CatalogImage.builder().catalogImageID(UUID.randomUUID()).path(x).catalog(catalog).build();
+                catalogImages.add(catalogImage);
+            });
+        }
 
-        catalogRequest.getProducts().forEach(x -> {
-            Product product = Product.builder().productID(UUID.randomUUID()).path(x).catalog(catalog).build();
-            products.add(product);
-        });
+        if (catalogRequest.getProducts() != null) {
+            catalogRequest.getProducts().forEach(x -> {
+                Product product = Product.builder().productID(UUID.randomUUID()).path(x).catalog(catalog).build();
+                products.add(product);
+            });
+        }
 
         imageRepository.deleteAllByCatalog(catalog);
         productRepository.deleteAllByCatalog(catalog);
