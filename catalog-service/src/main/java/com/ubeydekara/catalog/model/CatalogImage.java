@@ -16,7 +16,7 @@ public class CatalogImage {
     @GeneratedValue
     private UUID catalogImageID;
 
-    @Column(length = 500)
+    @Column(length = 1024)
     private String path;
 
     @ManyToOne

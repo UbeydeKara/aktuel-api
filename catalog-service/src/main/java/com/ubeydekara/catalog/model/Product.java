@@ -16,7 +16,7 @@ public class Product {
     @GeneratedValue
     private UUID productID;
 
-    @Column(length = 500)
+    @Column(length = 1024)
     private String path;
 
     @ManyToOne
