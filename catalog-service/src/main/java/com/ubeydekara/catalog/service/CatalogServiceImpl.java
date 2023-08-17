@@ -29,7 +29,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public List<CatalogResponse> findByRecentlyAdded() {
-        List<Catalog> catalogList = catalogRepository.findTop10ByOrderByCreateAtAsc();
+        List<Catalog> catalogList = catalogRepository.findTop10ByOrderByCreateAtDesc();
         return catalogMapper.toResponse(catalogList);
     }
 
