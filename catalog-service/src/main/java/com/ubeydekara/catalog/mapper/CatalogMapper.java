@@ -39,14 +39,21 @@ public class CatalogMapper {
 
         if (catalogRequest.getImages() != null) {
             catalogRequest.getImages().forEach(x -> {
-                CatalogImage catalogImage = CatalogImage.builder().catalogImageID(UUID.randomUUID()).path(x).catalog(catalog).build();
+                CatalogImage catalogImage = CatalogImage.builder().
+                        catalogImageID(UUID.randomUUID()).
+                        path(x)
+                        .catalog(catalog)
+                        .build();
                 catalogImages.add(catalogImage);
             });
         }
 
         if (catalogRequest.getProducts() != null) {
             catalogRequest.getProducts().forEach(x -> {
-                Product product = Product.builder().productID(UUID.randomUUID()).path(x).catalog(catalog).build();
+                Product product = Product.builder()
+                        .productID(UUID.randomUUID())
+                        .path(x).catalog(catalog)
+                        .build();
                 products.add(product);
             });
         }
@@ -61,7 +68,15 @@ public class CatalogMapper {
     }
 
     public CatalogResponse toResponse(Catalog catalog) {
-        return CatalogResponse.builder().catalogID(catalog.getCatalogID()).deadline(catalog.getDeadline()).startAt(catalog.getStartAt()).createAt(catalog.getCreateAt()).market(catalog.getMarket()).images(catalog.getImages().stream().map(CatalogImage::getPath).toList()).products(catalog.getProducts().stream().map(Product::getPath).toList()).build();
+        return CatalogResponse.builder()
+                .catalogID(catalog.getCatalogID())
+                .deadline(catalog.getDeadline())
+                .startAt(catalog.getStartAt())
+                .createAt(catalog.getCreateAt())
+                .market(catalog.getMarket())
+                .images(catalog.getImages().stream().map(CatalogImage::getPath).toList())
+                .products(catalog.getProducts().stream().map(Product::getPath).toList())
+                .build();
     }
 
     public List<CatalogResponse> toResponse(List<Catalog> catalogList) {

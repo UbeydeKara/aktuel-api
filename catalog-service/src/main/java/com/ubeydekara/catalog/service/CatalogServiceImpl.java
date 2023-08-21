@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,7 +46,6 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public CatalogResponse save(CatalogRequest catalogRequest) {
         Catalog catalogEntity = catalogMapper.toEntity(catalogRequest);
-        catalogEntity.setCreateAt(LocalDate.now());
         Catalog catalog = catalogRepository.save(catalogEntity);
         return catalogMapper.toResponse(catalog);
     }

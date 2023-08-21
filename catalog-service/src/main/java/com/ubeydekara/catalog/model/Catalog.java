@@ -1,13 +1,14 @@
 package com.ubeydekara.catalog.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,7 +23,10 @@ public class Catalog {
     private UUID catalogID;
     private LocalDate deadline;
     private LocalDate startAt;
-    private LocalDate createAt;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createAt;
 
     @ManyToOne
     @JoinColumn(name = "marketID")
