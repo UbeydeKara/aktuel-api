@@ -57,7 +57,7 @@ services:
     restart: unless-stopped
 
   config-service:
-    image: ubeydekara/aktuel-config-service:latest
+    image: ubeydekara/aktuel-config:latest
     container_name: config-service
     ports:
       - "8888:8888"
@@ -70,7 +70,7 @@ services:
       - VAULT_TOKEN=${VAULT_TOKEN}
 
   discovery-service:
-    image: ubeydekara/aktuel-discovery-service:latest
+    image: ubeydekara/aktuel-discovery:latest
     container_name: discovery-service
     ports:
       - "8761:8761"
@@ -83,7 +83,7 @@ services:
       - zipkin
 
   gateway-service:
-    image: ubeydekara/aktuel-gateway-service:latest
+    image: ubeydekara/aktuel-gateway:latest
     container_name: gateway-service
     ports:
       - "8080:8080"
@@ -97,10 +97,25 @@ services:
       - discovery-service
 
   catalog-service:
-    image: ubeydekara/aktuel-catalog-service:latest
+    image: ubeydekara/aktuel-catalog:latest
     container_name: catalog-service
     ports:
       - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - config-service
+      - zipkin
+      - postgres
+
+  notification-service:
+    image: ubeydekara/aktuel-notification:latest
+    container_name: notification-service
+    ports:
+      - "8082:8082"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
