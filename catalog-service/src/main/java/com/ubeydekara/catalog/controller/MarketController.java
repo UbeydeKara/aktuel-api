@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/market")
@@ -29,5 +30,12 @@ public class MarketController {
     public ResponseEntity<Object> save(@RequestBody @Valid Market market) {
         Market newMarket = marketService.save(market);
         return ResponseHandler.generateResponse(HttpStatus.OK, newMarket);
+    }
+
+    @DeleteMapping("/del/{marketID}")
+    public ResponseEntity<Object> deleteById(@PathVariable UUID marketID) {
+        marketService.deleteById(marketID);
+        return ResponseHandler.generateResponse(HttpStatus.OK,
+                "Market [" + marketID + "] deleted successfully");
     }
 }

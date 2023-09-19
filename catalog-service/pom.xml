@@ -12,6 +12,10 @@
     <packaging>jar</packaging>
     <artifactId>catalog-service</artifactId>
 
+    <properties>
+        <imageId>catalog</imageId>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

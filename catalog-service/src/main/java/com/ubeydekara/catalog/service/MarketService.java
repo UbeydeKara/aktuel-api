@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface MarketService {
     List<Market> findAll();
-
     Market save(Market market);
+    void deleteById(UUID marketID);
     Market getById(UUID marketID);
 }

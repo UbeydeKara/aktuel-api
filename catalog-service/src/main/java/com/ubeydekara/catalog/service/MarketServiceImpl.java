@@ -27,6 +27,11 @@ public class MarketServiceImpl implements MarketService {
     }
 
     @Override
+    public void deleteById(UUID marketID) {
+        marketRepository.deleteById(marketID);
+    }
+
+    @Override
     public Market getById(UUID marketID) {
         return marketRepository.getMarketByMarketID(marketID);
     }

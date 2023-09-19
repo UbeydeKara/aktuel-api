@@ -12,6 +12,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <imageId>gateway</imageId>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
